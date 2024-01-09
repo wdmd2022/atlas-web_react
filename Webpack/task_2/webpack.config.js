@@ -15,7 +15,21 @@ module.exports = {
             },
             {
                 test: /\.(?:ico|gif|png|jpeg|jpg)$/i,
-                type: 'asset/resource'
+                use: [
+                    'file-loader',
+                    {
+                        loader: 'image-webpack-loader',
+                        options: {
+                            mozjpeg: {
+                                progressive: true,
+                                quality: 50
+                            },
+                            optipng: { enabled: false },
+                            pngquant: { enabled: false },
+                            gifsicle: { enabled: false },
+                        }
+                    }
+                ]
             }
         ]
     }
