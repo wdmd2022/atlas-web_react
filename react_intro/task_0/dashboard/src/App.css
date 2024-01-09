@@ -1,0 +1,33 @@
+.App {
+  text-align: center;
+  background-color: white;
+  font-family: sans-serif;
+}
+
+.App-logo {
+  height: 30vmin;
+}
+
+.App-header {
+  min-height: 10vh;
+  display: flex;
+  font-size: calc(10px + 2vmin);
+  color: #E0354B;
+  align-items: center;
+  margin-top: 50px;
+  border-bottom: 3px solid red;
+}
+
+.App-body {
+  border-bottom: 3px solid red;
+  font-size: calc(12px + 1vmin);
+  text-align: left;
+  padding: 50px;
+  padding-bottom: 300px;
+}
+
+.App-footer {
+  font-style: italic;
+  font-size: calc(10px + 1vmin)
+}
+
