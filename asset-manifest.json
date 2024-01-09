@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/atlas-web_react/static/css/main.7a987e22.css",
+    "main.js": "/atlas-web_react/static/js/main.954e9e01.js",
+    "static/js/787.1cd31a9e.chunk.js": "/atlas-web_react/static/js/787.1cd31a9e.chunk.js",
+    "static/media/holberton-logo.jpeg": "/atlas-web_react/static/media/holberton-logo.24bab5d633e36ca8d17e.jpeg",
+    "index.html": "/atlas-web_react/index.html",
+    "main.7a987e22.css.map": "/atlas-web_react/static/css/main.7a987e22.css.map",
+    "main.954e9e01.js.map": "/atlas-web_react/static/js/main.954e9e01.js.map",
+    "787.1cd31a9e.chunk.js.map": "/atlas-web_react/static/js/787.1cd31a9e.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7a987e22.css",
+    "static/js/main.954e9e01.js"
+  ]
+}
