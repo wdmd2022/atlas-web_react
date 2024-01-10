@@ -1,0 +1,7 @@
+.App-footer {
+    font-style: italic;
+    font-size: calc(10px + 1vmin);
+    text-align: center;
+    background-color: white;
+    font-family: serif;
+  }
