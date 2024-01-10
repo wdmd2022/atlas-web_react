@@ -1,0 +1,13 @@
+.App-body {
+    background: white;
+    font-family: serif;
+    border-bottom: 3px solid red;
+    font-size: calc(12px + 1vmin);
+    text-align: left;
+    padding: 50px;
+    padding-bottom: 250px;
+  }
+
+  .App-body label, button{
+    margin: 20px;
+  }
