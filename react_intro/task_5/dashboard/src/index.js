@@ -1,9 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 // import './index.css';
-import App from './App';
-import Notifications from './Notifications';
-import reportWebVitals from './reportWebVitals';
+import App from './App/App';
+import Notifications from './Notifications/Notifications';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -14,6 +13,3 @@ root.render(
     <App />
   </React.StrictMode>
 );
-
-
-reportWebVitals();
