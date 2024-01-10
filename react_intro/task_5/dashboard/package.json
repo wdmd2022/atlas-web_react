@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "build": "webpack --config ./config/webpack.config.js",
     "test": "jest",
-    "start": "webpack-dev-server --mode development --config config/webpack.config.js"
+    "start": "webpack-dev-server --mode development --config ./config/webpack.config.js"
   },
   "keywords": [],
   "author": "",
@@ -14,6 +15,7 @@
     "@babel/core": "^7.23.7",
     "@babel/preset-env": "^7.23.8",
     "@babel/preset-react": "^7.23.3",
+    "babel": "^6.23.0",
     "babel-loader": "^9.1.3",
     "css-loader": "^6.9.0",
     "file-loader": "^6.2.0",
