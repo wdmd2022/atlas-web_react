@@ -6,7 +6,8 @@ module.exports = {
     devServer: {
         static: path.join(__dirname, 'dist'),
         port: 8564,
-        hot: true
+        hot: true,
+        open: true
     },
     module: {
         rules: [
