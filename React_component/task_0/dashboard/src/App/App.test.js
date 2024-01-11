@@ -52,4 +52,16 @@ describe('<App />', () => {
     // then let's confirm it includes the CourseList component
     expect(wrapper.find(CourseList).length).toBe(1);
   });
+
+  it('uses the logOut function when you press the panic button (ctrl-H)', () => {
+    const mockLogOut = jest.fn();
+    const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
+    // love making wrappers
+    const wrapper = shallow(<App logOut={mockLogOut} />);
+    const event = new KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
+    document.dispatchEvent(event);
+    expect(alertMock).toHaveBeenCalledWith('Logging you out');
+    expect(mockLogOut).toHaveBeenCalled();
+    alertMock.mockRestore();
+  });
 });
