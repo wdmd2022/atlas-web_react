@@ -1,0 +1,39 @@
+.Notifications {
+    margin-top: 20px;
+    padding-top: 10px;
+    padding-bottom: 25px;
+    padding-left: 5px;
+    padding-right: 5px;
+    border: 2px red dashed;
+    position: absolute;
+    top: 2;
+    right: 3%;
+    /* float: right; */
+    width: 40%;
+    height: 10%;
+    font-size: calc(6px + 1vmin);
+}
+
+
+li {
+    font-size: small;
+}
+
+li[data-notification-type="default"] {
+    color: blue;
+}
+
+li[data-notification-type="urgent"] {
+    color: red;
+}
+
+.menuItem {
+    margin-top: 0px;
+    padding-top: 0px;
+    margin-bottom: 5px;
+    /* float: right; */
+    position: absolute;
+    right: 5%;
+    top: 2%;
+
+}
