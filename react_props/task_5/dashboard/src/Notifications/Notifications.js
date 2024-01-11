@@ -5,7 +5,7 @@ import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
 
-function Notifications({ displayDrawer }) {
+function Notifications({ displayDrawer, listNotifications }) {
   return (
     <>
     <div className="menuItem">
@@ -20,9 +20,11 @@ function Notifications({ displayDrawer }) {
           Here is the list of notifications
         </p>
         <ul className="NotificationsList">
-          <NotificationItem type="default" value="New course available" />
-          <NotificationItem type="urgent" value="New resume available" />
-          <NotificationItem type="urgent" html={{__html: getLatestNotification()}} />
+          {listNotifications.length === 0 ? (<NotificationItem value="No new notification for now" />) : (
+            listNotifications.map(notification => (
+              <NotificationItem key={notification.id} {...notification} />
+            ))
+          )}
         </ul>
       </div>
     )}

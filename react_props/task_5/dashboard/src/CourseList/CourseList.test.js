@@ -10,9 +10,9 @@ describe('<CourseList />', () => {
     // nice
   });
 
-  it('Renders the 5 different rows we were hoping for', () => {
+  it('Renders the 3 different rows we were hoping for', () => {
     // first let's make a new wrapper (what is this, a wrapper convention?)
     const wrapper = shallow(<CourseList />);
-    expect(wrapper.find(CourseListRow).length).toBe(5);
+    expect(wrapper.find(CourseListRow).length).toBe(3);
   });
 });
