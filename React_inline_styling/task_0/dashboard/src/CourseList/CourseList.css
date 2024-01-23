@@ -1,0 +1,32 @@
+#CourseList {
+  width: 80%;
+  margin-top: 100px;
+  border-collapse: collapse;
+  margin-left: 10%;
+  margin-right: 10%;
+  border-left: 1px gray solid;
+  border-right: 1px gray solid;
+  border-bottom: 1px gray solid;
+}
+thead th {
+  text-align: center;
+}
+
+thead th {
+  border-top: 1px solid gray;
+  /* border: 1px solid gray; */
+}
+
+thead tr {
+  border-bottom: 1px solid gray;
+}
+
+thead tr:nth-child(2) th:first-child {
+  text-align: left;
+  padding-left: 2%;
+}
+
+tbody tr td:first-child {
+  text-align: left;
+  padding-left: 2%;
+}
