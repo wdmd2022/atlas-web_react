@@ -8,12 +8,23 @@ import Footer from '../Footer/Footer';
 import { shallow, mount } from 'enzyme';
 import CourseList from '../CourseList/CourseList';
 import jsdom from 'jsdom';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 const { JSDOM } = jsdom;
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 global.window = window;
 global.document = window.document;
 global.alert = jest.fn();
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('<App />', () => {
   it('renders without crashing', () => {
