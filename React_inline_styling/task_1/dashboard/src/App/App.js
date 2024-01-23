@@ -10,7 +10,7 @@ import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBot
 import { StyleSheet, css } from 'aphrodite';
 
 const styles = StyleSheet.create({
-  app: {
+  body: {
     textAlign: 'center',
     backgroundColor: 'white',
     fontFamily: 'serif',
@@ -61,7 +61,7 @@ class App extends React.Component {
     return (
       <>
         <Notifications listNotifications={listNotifications} />
-        <div className={css(styles.app)}>
+        <div className={css(styles.body)}>
           <Header />
           {isLoggedIn?
           <BodySectionWithMarginBottom title="Course list" children={<CourseList listCourses={listCourses} />} />
