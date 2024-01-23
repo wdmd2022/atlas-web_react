@@ -1,0 +1,30 @@
+thead th {
+  text-align: center;
+}
+
+thead th {
+  border-top: 1px solid gray;
+  /* border: 1px solid gray; */
+}
+
+thead tr {
+  border-bottom: 1px solid gray;
+}
+
+thead tr:nth-child(2) th:first-child {
+  text-align: left;
+  padding-left: 2%;
+}
+
+th:nth-child(2) {
+  text-align: left;
+}
+
+tbody tr td:first-child {
+  text-align: left;
+  padding-left: 2%;
+}
+
+tbody tr td:nth-child(2) {
+  text-align: left;
+}
