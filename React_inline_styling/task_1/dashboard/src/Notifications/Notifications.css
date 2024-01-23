@@ -9,14 +9,3 @@ li[data-notification-type="default"] {
 li[data-notification-type="urgent"] {
     color: red;
 }
-
-.menuItem {
-    margin-top: 0px;
-    padding-top: 0px;
-    margin-bottom: 5px;
-    /* float: right; */
-    position: absolute;
-    right: 5%;
-    top: 2%;
-
-}
