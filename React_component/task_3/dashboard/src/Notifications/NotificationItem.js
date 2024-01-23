@@ -7,7 +7,7 @@ class NotificationItem extends React.Component {
         if (html) {
             return <li data-notification-type={type} dangerouslySetInnerHTML={html} onClick={markAsRead(id)}></li>;
         } else {
-            return <li data-notification-type={type}>{value}</li>;
+            return <li data-notification-type={type} onClick={markAsRead(id)}>{value}</li>;
         }
     }
 }
@@ -25,7 +25,7 @@ NotificationItem.defaultProps = {
     type: "default",
     value: '',
     html: undefined,
-    markAsRead: (id) => {}
+    markAsRead: () => {}
 };
 
 export default NotificationItem;
