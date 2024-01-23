@@ -44,6 +44,14 @@ const styles = StyleSheet.create({
     position: 'absolute',
     right: '5%',
     top: '2%'
+  },
+  notificationsList: {
+    '@media (max-width: 900px)': {
+      padding: 0,
+      margin: 0,
+      listStyleType: 'none',
+      width: '100%'
+    }
   }
 })
 
@@ -74,7 +82,7 @@ class Notifications extends React.Component{
           <p>
             Here is the list of notifications
           </p>
-          <ul className="NotificationsList">
+          <ul className={css(styles.notificationsList)}>
             {listNotifications.length === 0 ? (<NotificationItem value="No new notification for now" />) : (
               listNotifications.map(notification => (
                 <NotificationItem key={notification.id} id={notification.id} type={notification.type} value={notification.value} html={notification.html} markAsRead={this.markAsRead} />

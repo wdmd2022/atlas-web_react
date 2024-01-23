@@ -5,11 +5,27 @@ import { StyleSheet, css } from 'aphrodite';
 const styles = StyleSheet.create({
     default: {
         fontSize: 'small',
-        color: 'blue'
+        color: 'blue',
+        '@media (max-width: 900px)': {
+            // but when it's small we get big
+            fontSize: '20px',
+            width: '100%',
+            borderBottom: '1px solid black',
+            padding: '10px 8px',
+            listStyleType: 'none'
+        }
     },
     urgent: {
         fontSize: 'small',
-        color: 'red'
+        color: 'red',
+        '@media (max-width: 900px)': {
+            // but when it's small we get big
+            fontSize: '20px',
+            width: '100%',
+            borderBottom: '1px solid black',
+            padding: '10px 8px',
+            listStyleType: 'none'
+        }
     }
 });
 
