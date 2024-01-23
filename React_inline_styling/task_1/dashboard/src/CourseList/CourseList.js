@@ -15,20 +15,6 @@ const styles = StyleSheet.create({
     borderLeft: '1px solid gray',
     borderRight: '1px solid gray',
     borderBottom: '1px solid gray',
-  },
-  firstHeaderRow: {
-    textAlign: 'center',
-    borderTop: '1px solid gray',
-    borderBottom: '1px solid gray',
-  },
-  secondHeaderRow: {
-    textAlign: 'left',
-    paddingLeft: '2%',
-    borderBottom: '1px solid gray',
-  },
-  tbodyRow: {
-    textAlign: 'left',
-    paddingLeft: '2%',
   }
 });
 
@@ -36,12 +22,12 @@ function CourseList({ listCourses }) {
   return (
     <table className={css(styles.courseList)}>
       <thead>
-        <CourseListRow textFirstCell='Available courses' isHeader={true} className={css(styles.firstHeaderRow)} />
-        <CourseListRow textFirstCell='Course name' textSecondCell='Credit' isHeader={true} className={css(styles.secondHeaderRow)} />
+        <CourseListRow textFirstCell='Available courses' isHeader={true} />
+        <CourseListRow textFirstCell='Course name' textSecondCell='Credit' isHeader={true} />
       </thead>
-      <tbody className={css(styles.tbody)}>
-        {listCourses.length === 0 ? (<CourseListRow textFirstCell="No course available yet" isHeader={false} className={css(styles.tbodyRow)} />) : (
-          listCourses.map(course => (<CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={String(course.credit)} isHeader={false} className={css(styles.tbodyRow)} />))
+      <tbody>
+        {listCourses.length === 0 ? (<CourseListRow textFirstCell="No course available yet" isHeader={false} />) : (
+          listCourses.map(course => (<CourseListRow key={course.id} textFirstCell={course.name} textSecondCell={String(course.credit)} isHeader={false} />))
         )}
       </tbody>
     </table>

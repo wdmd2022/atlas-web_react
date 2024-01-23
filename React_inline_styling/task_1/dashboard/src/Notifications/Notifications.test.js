@@ -4,11 +4,22 @@ import Notifications from './Notifications';
 import NotificationItem from './NotificationItem';
 import { shallow, mount } from 'enzyme';
 import jsdom from 'jsdom';
+import { StyleSheetTestUtils } from 'aphrodite';
 
 const { JSDOM } = jsdom;
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
 global.window = window;
 global.document = window.document;
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+    StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+    StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('<Notifications />', () => {
     it('renders without crashing', () => {

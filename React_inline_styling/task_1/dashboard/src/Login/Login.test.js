@@ -1,6 +1,17 @@
 import React from 'react';
 import { shallow } from 'enzyme';
 import Login from './Login';
+import { StyleSheetTestUtils } from "aphrodite";
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('<Login />', () => {
     it('renders without crashing hopefully', () => {

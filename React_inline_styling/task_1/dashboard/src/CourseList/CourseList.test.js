@@ -2,6 +2,17 @@ import CourseList from "./CourseList";
 import CourseListRow from "./CourseListRow";
 import React from 'react';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from "aphrodite";
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('<CourseList />', () => {
   it('Totally does not crash when it renders', () => {

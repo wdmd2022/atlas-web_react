@@ -2,6 +2,17 @@ import React from 'react';
 import { shallow } from 'enzyme';
 import BodySectionWithMarginBottom from './BodySectionWithMarginBottom';
 import BodySection from './BodySection';
+import { StyleSheetTestUtils } from "aphrodite";
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('<BodySectionWithMarginBottom />', () => {
   it('renders the BodySection component and passes props correctly to the child', () => {

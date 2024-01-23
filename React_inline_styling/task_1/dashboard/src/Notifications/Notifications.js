@@ -4,6 +4,24 @@ import { getLatestNotification } from '../utils/utils';
 import closeIcon from '../assets/close-icon.png';
 import NotificationItem from './NotificationItem';
 import PropTypes from 'prop-types';
+import { StyleSheet, css } from 'aphrodite';
+
+const styles = StyleSheet.create({
+  notificationsPanel: {
+    marginTop: '20px',
+    paddingTop: '10px',
+    paddingBottom: '25px',
+    paddingLeft: '5px',
+    paddingRight: '5px',
+    border: '2px red dashed',
+    position: 'absolute',
+    top: '2',
+    right: '3%',
+    width: '40%',
+    height: '10%',
+    fontSize: 'calc(6px + 1vmin)'
+  }
+})
 
 class Notifications extends React.Component{
   constructor(props) {
@@ -25,7 +43,7 @@ class Notifications extends React.Component{
         <p>Your notifications</p>
       </div>
       {displayDrawer && (
-        <div className="Notifications">
+        <div className={`${css(styles.notificationsPanel)} Notifications`}>
           <button style={{ position: 'absolute', right:'1px', top: '1px', background: 'transparent', border:'none', padding: '1px' }} aria-label='Close' onClick={() => console.log("Close button has been clicked")}>
             <img src={closeIcon} alt='x' style={{width: '10px'}} />
           </button>
