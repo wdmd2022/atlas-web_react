@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
 
 function BodySectionWithMarginBottom(props) {
   return (
-    <div className="bodySectionWithMarginBottom">
+    <div className={css(styles.bodySectionWithMarginBottom)}>
       <BodySection {...props} />
     </div>
   );
