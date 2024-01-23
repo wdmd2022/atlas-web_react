@@ -1,6 +1,17 @@
 import React from 'react';
 import CourseListRow from './CourseListRow';
 import { shallow } from 'enzyme';
+import { StyleSheetTestUtils } from "aphrodite";
+
+// can't have Aphrodite messing up our tests with style injection
+beforeAll(() => {
+  StyleSheetTestUtils.suppressStyleInjection();
+});
+
+// but when we're done we'll want to clear up that suppression
+afterAll(() => {
+  StyleSheetTestUtils.clearBufferAndResumeStyleInjection();
+});
 
 describe('CourseListRow', () => {
   it('if isHeader is true, renders one cell with colspan=2 if textSecondCell does not exist', () => {
