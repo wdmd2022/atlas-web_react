@@ -155,4 +155,26 @@ describe('<Notifications />', () => {
         // And let's check our expectations:
         expect(shouldUpdate).toBe(true);
       });
+
+      it('calls handleDisplayDrawer when the menu item is clicked', () => {
+        // I'm not normally one for mockery but here we go
+        const handleDisplayDrawerMock = jest.fn();
+        // I usually wrap presents in several layers but let's try a shallow one
+        const wrapper = shallow(<Notifications handleDisplayDrawer={handleDisplayDrawerMock} />);
+        // let's click the menu
+        wrapper.find('.menu').simulate('click');
+        // and declare our expectations
+        expect(handleDisplayDrawerMock).toHaveBeenCalled();
+      });
+
+      it('calls handleHideDrawer when the close button is clicked', () => {
+        // Mock, yeah, ing, yeah, bird, yeah, yeah, yeah
+        const handleHideDrawerMock = jest.fn();
+        // yet again we wrap Notifications, please don't tell anyone I'm a re-gifter
+        const wrapper = shallow(<Notifications displayDrawer={true} handleHideDrawer={handleHideDrawerMock} />);
+        // and let's click a button
+        wrapper.find('button').simulate('click');
+        // and expectantly wait
+        expect(handleHideDrawerMock).toHaveBeenCalled();
+      });
 });

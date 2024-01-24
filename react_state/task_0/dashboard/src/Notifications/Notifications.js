@@ -99,23 +99,23 @@ class Notifications extends React.Component{
     this.markAsRead = this.markAsRead.bind(this);
   }
   shouldComponentUpdate(nextProps) {
-    return nextProps.listNotifications.length > this.props.listNotifications.length;
+    return nextProps.listNotifications.length > this.props.listNotifications.length || nextProps.displayDrawer !== this.props.displayDrawer;
   }
   markAsRead = (id) => {
     console.log(`Notification ${id} has been marked as read`);
   }
 
   render() {
-    const { displayDrawer, listNotifications } = this.props;
+    const { displayDrawer, listNotifications, handleDisplayDrawer, handleHideDrawer } = this.props;
     const menuClassName = displayDrawer ? styles.menuItemHidden : styles.menuItem;
     return (
       <>
-      <div className={`${css(menuClassName)} menu`}>
+      <div className={`${css(menuClassName)} menu`} onClick={handleDisplayDrawer}>
         <p>Your notifications</p>
       </div>
       {displayDrawer && (
         <div className={`${css(styles.notificationsPanel)} Notifications`}>
-          <button style={{ position: 'absolute', right:'1px', top: '1px', background: 'transparent', border:'none', padding: '1px' }} aria-label='Close' onClick={() => console.log("Close button has been clicked")}>
+          <button style={{ position: 'absolute', right:'1px', top: '1px', background: 'transparent', border:'none', padding: '1px' }} aria-label='Close' onClick={handleHideDrawer}>
             <img src={closeIcon} alt='x' style={{width: '10px'}} />
           </button>
           <p>
