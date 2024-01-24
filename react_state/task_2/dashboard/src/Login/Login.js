@@ -63,16 +63,15 @@ const styles = StyleSheet.create({
   }
 });
 
-function Login() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+function Login(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [enableSubmit, setEnableSubmit] = useState(false);
   function handleLoginSubmit(event) {
     // first we make sure it doesn't act like a normal form
     event.preventDefault();
-    // then we set isLoggedIn to true
-    setIsLoggedIn(true);
+    // then we use the logIn function passed as a prop from App
+    props.logIn(email, password);
   }
   function handleChangeEmail(event) {
     // take the new input value and use it to update the state value of email
