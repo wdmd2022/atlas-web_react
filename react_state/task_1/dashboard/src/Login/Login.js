@@ -77,10 +77,18 @@ function Login() {
   function handleChangeEmail(event) {
     // take the new input value and use it to update the state value of email
     setEmail(event.target.value);
+    // now check to see if both email and password have non-empty vales
+    let bothFilled = (email != '' && password != '');
+    // and enable or disable the submit input based on this
+    setEnableSubmit(bothFilled);
   }
   function handleChangePassword(event) {
     // take the new input value and use it to update the state value of password
     setPassword(event.target.value);
+    // now check to see if both email and password have non-empty vales
+    let bothFilled = (email !== '' && password !== '');
+    // and enable or disable the submit input based on this
+    setEnableSubmit(bothFilled);
   }
   return (
     <div className={css(styles.body)}>
@@ -96,7 +104,7 @@ function Login() {
           <label htmlFor="password" className={css(styles.label)}>Password: </label>
           <input type="password" id="password" name="password" className={css(styles.input)} value={password} onChange={handleChangePassword} />
         </div>
-        <input type="submit" value="OK" className={css(styles.button)} />
+        <input type="submit" value="OK" className={css(styles.button)} disabled={!enableSubmit} />
       </form>
     </div>
   );
