@@ -67,6 +67,12 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  function handleLoginSubmit(event) {
+    // first we make sure it doesn't act like a normal form
+    event.preventDefault();
+    // then we set isLoggedIn to true
+    setIsLoggedIn(true);
+  }
   return (
     <div className={css(styles.body)}>
       <p>
@@ -81,7 +87,7 @@ function Login() {
           <label htmlFor="password" className={css(styles.label)}>Password: </label>
           <input type="password" id="password" name="password" className={css(styles.input)} />
         </div>
-        <input type="submit" value="OK" className={css(styles.button)} />
+        <input type="submit" value="OK" className={css(styles.button)} onSubmit={handleLoginSubmit} />
       </form>
     </div>
   );
