@@ -77,16 +77,16 @@ function Login() {
   function handleChangeEmail(event) {
     // take the new input value and use it to update the state value of email
     setEmail(event.target.value);
-    // now check to see if both email and password have non-empty vales
-    let bothFilled = (email != '' && password != '');
+    // now check to see if both this new value and password have non-empty vales
+    let bothFilled = (event.target.value !== '' && password !== '');
     // and enable or disable the submit input based on this
     setEnableSubmit(bothFilled);
   }
   function handleChangePassword(event) {
     // take the new input value and use it to update the state value of password
     setPassword(event.target.value);
-    // now check to see if both email and password have non-empty vales
-    let bothFilled = (email !== '' && password !== '');
+    // now check to see if both this new value and email have non-empty vales
+    let bothFilled = (event.target.value !== '' && email !== '');
     // and enable or disable the submit input based on this
     setEnableSubmit(bothFilled);
   }
