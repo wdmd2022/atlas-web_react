@@ -39,12 +39,24 @@ class App extends React.Component {
         password: '',
         isLoggedIn: false
       },
+      listNotifications: [
+        { id: 1, type: 'default', value: 'New course available' },
+        { id: 2, type: 'urgent', value: 'New resume available' },
+        { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
+      ],
     };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
     this.logOut = this.logOut.bind(this);
     this.logIn = this.logIn.bind(this);
   }
+
+  markNotificationAsRead = (id) => {
+    // using an arrow function because I am tired of binding things
+    this.setState(prevState => ({
+      listNotifications: prevState.listNotifications.filter(notification => notification.id !== id)
+    }));
+  };
 
   logIn(email, password) {
     this.setState({ user: { email, password, isLoggedIn: true}});
@@ -76,16 +88,11 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, displayDrawer } = this.state;
+    const { user, displayDrawer, listNotifications } = this.state;
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
       { id: 3, name: 'React', credit: 40 },
-    ];
-    const listNotifications = [
-      { id: 1, type: 'default', value: 'New course available' },
-      { id: 2, type: 'urgent', value: 'New resume available' },
-      { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
     ];
 
     return (
@@ -96,6 +103,7 @@ class App extends React.Component {
           displayDrawer={displayDrawer}
           handleDisplayDrawer={this.handleDisplayDrawer}
           handleHideDrawer={this.handleHideDrawer}
+          markNotificationAsRead={this.markNotificationAsRead}
         />
         <div className={css(styles.body)}>
           <Header />

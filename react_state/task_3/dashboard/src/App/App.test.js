@@ -161,4 +161,23 @@ describe('<App />', () => {
     })
   });
 
+  it('correctly removes notifications using markNotificationAsRead', () => {
+    // let's make a mockery out of this data
+    const mockListNotifications = [
+      { id: 1, value: "Please don't read me" },
+      { id: 2, value: "Please don't read me either" },
+      { id: 3, value: "Go ahead punk, make my day" },
+    ];
+    // and wrap up a shallow copy of our app
+    const wrapper = shallow(<App />);
+    // we'll add our fake list to the state
+    wrapper.setState({ listNotifications: mockListNotifications });
+    // and call our function on the last one
+    wrapper.instance().markNotificationAsRead(3);
+    // then grab a copy of that updated state
+    const smallerMockListNotifications = wrapper.state('listNotifications');
+    // and act like we knew 3 would be removed all along
+    expect(smallerMockListNotifications).toEqual(expect.not.arrayContaining([{ id: 3 }])); // that is a lot of closing brackets
+  })
+
 });
