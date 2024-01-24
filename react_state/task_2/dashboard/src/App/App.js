@@ -9,6 +9,7 @@ import CourseList from '../CourseList/CourseList';
 import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import { StyleSheet, css } from 'aphrodite';
+import AppContext from './AppContext';
 
 const styles = StyleSheet.create({
   body: {
@@ -31,38 +32,51 @@ const styles = StyleSheet.create({
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { displayDrawer: false };
+    this.state = {
+      displayDrawer: false,
+      user: {
+        email: '',
+        password: '',
+        isLoggedIn: false
+      },
+    };
     this.handleDisplayDrawer = this.handleDisplayDrawer.bind(this);
     this.handleHideDrawer = this.handleHideDrawer.bind(this);
+    this.logOut = this.logOut.bind(this);
+    this.logIn = this.logIn.bind(this);
   }
+
+  logIn(email, password) {
+    this.setState({ user: { email, password, isLoggedIn: true}});
+  }
+
+  logOut() {
+    this.setState({ user: { email: '', password: '', isLoggedIn: false }});
+  }
+
   componentDidMount() {
     document.addEventListener('keydown', this.pressyWessyCtrlH);
   }
-
   componentWillUnmount() {
     document.removeEventListener('keydown', this.pressyWessyCtrlH);
   }
-
   pressyWessyCtrlH = (event) => {
     if (event.ctrlKey && event.key === 'h') {
       event.preventDefault();
       alert("logging you out");
-      this.props.logOut();
+      this.logOut();
     }
   }
 
   handleDisplayDrawer() {
     this.setState({ displayDrawer: true });
   }
-
   handleHideDrawer() {
     this.setState({ displayDrawer: false });
   }
 
   render() {
-    const { isLoggedIn } = this.props;
-    const { logOut } = this.props;
-    const { displayDrawer } = this.state;
+    const { user, displayDrawer } = this.state;
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
@@ -75,6 +89,7 @@ class App extends React.Component {
     ];
 
     return (
+      <AppContext.Provider value={{ user: this.state.user, logOut: this.logOut }}>
       <>
         <Notifications
           listNotifications={listNotifications}
@@ -84,27 +99,24 @@ class App extends React.Component {
         />
         <div className={css(styles.body)}>
           <Header />
-          {isLoggedIn?
+          {user.isLoggedIn?
           <BodySectionWithMarginBottom title="Course list" children={<CourseList listCourses={listCourses} />} />
           :
-          <BodySectionWithMarginBottom title="Log in to continue" children={<Login />} />
+          <BodySectionWithMarginBottom title="Log in to continue" children={<Login logIn={this.logIn} />} />
           }
           <BodySection title="News from the School" children={<p>School is cool. School is cool.</p>} />
           <Footer className={css(styles.footer)} />
         </div>
       </>
+      </AppContext.Provider>
     );
   }
 }
 
 App.propTypes = {
-  isLoggedIn: PropTypes.bool,
-  logOut: PropTypes.func,
 };
 
 App.defaultProps = {
-  isLoggedIn: false,
-  logOut: () => {},
 };
 
 export default App;
