@@ -9,6 +9,7 @@ import { shallow, mount } from 'enzyme';
 import CourseList from '../CourseList/CourseList';
 import jsdom from 'jsdom';
 import { StyleSheetTestUtils } from 'aphrodite';
+import { act } from 'react-dom/test-utils';
 
 const { JSDOM } = jsdom;
 const { window } = new JSDOM('<!doctype html><html><body></body></html>');
@@ -64,7 +65,9 @@ describe('<App />', () => {
 
   it('should display only the correct stuff when isLoggedIn is true', () => {
     // let's make a shallow copy and do two checks
-    const wrapper = shallow(<App isLoggedIn={true} />);
+    const wrapper = shallow(<App />);
+    // and let's set the state in the wrapper
+    wrapper.setState({ user: { isLoggedIn: true } });
     // first let's confirm it does not show the Login component
     expect(wrapper.find(Login).length).toBe(0);
     // then let's confirm it includes the CourseList component
@@ -72,21 +75,23 @@ describe('<App />', () => {
   });
 
   it('calls logOut and alert when we press Ctrl+H', () => {
-    // first we will mock up the function we want to look for
-    const logOutMock = jest.fn();
-    // secondly we will mock up the alert function!
-    // const alertMock = jest.spyOn(window, 'alert').mockImplementation(() => {});
-    // now we get to go back to wrapping!
-    const wrapper = mount(<App logOut={logOutMock} />);
+    // first we get to go back to wrapping, our favorite pastime
+    const wrapper = mount(<App />);
+    // next, like the man who adopted James Bond, we set about to make a spy:
+    const logOutSpy = jest.spyOn(wrapper.instance(), 'logOut');
     // finally we approximate the Platonic idea of a ctrl-h keypress
-    const event = new window.KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
-    document.dispatchEvent(event);
+    // but first we'll wrap it in act so that all updates related to state changes
+    // are processed before the assertions happen.
+    act(() => {
+      const event = new window.KeyboardEvent('keydown', { key: 'h', ctrlKey: true });
+      document.dispatchEvent(event);
+    });
     // then we check to see if it called what we want
-    expect(logOutMock).toHaveBeenCalled();
+    expect(logOutSpy).toHaveBeenCalled();
     // expect(alertMock).toHaveBeenCalledWith('Logging you out');
     expect(global.alert).toHaveBeenCalledWith('logging you out');
     // and reset it so nobody knows we were mocking
-    // alertMock.mockRestore();
+    logOutSpy.mockRestore();
   });
 
   it('has a default state for displayDrawer correctly set to false', () => {
@@ -115,4 +120,45 @@ describe('<App />', () => {
     // and assert what we expect to be true (I swear that's not rude)
     expect(wrapper.state('displayDrawer')).toBe(false);
   });
+
+  it('actually updates the state when logging in', () => {
+    // Don't cut your fingers, it's time to get wrapping again
+    const wrapper = shallow(<App />);
+    // let's define some fake credentials
+    const emaily = "president@example.com";
+    const passy = "ilovepasswords";
+    // now let's use them to call the logIn function on our test instance
+    wrapper.instance().logIn(emaily, passy);
+    // and let us now cautiously peek inside the wrapped package to confirm
+    expect(wrapper.state('user')).toEqual({
+      email: emaily,
+      password: passy,
+      isLoggedIn: true
+    });
+  });
+
+  it('actually updates the state when logging out', () => {
+    // Don't cut your fingers, it's time to get wrapping again
+    const wrapper = shallow(<App />);
+    // let's define some fake credentials
+    const emaily = "president@example.com";
+    const passy = "ilovepasswords";
+    // now let's use them to call the logIn function on our test instance
+    wrapper.instance().logIn(emaily, passy);
+    // and let us now cautiously peek inside the wrapped package to confirm
+    expect(wrapper.state('user')).toEqual({
+      email: emaily,
+      password: passy,
+      isLoggedIn: true,
+    });
+    // great, that worked, so let's log out and check again
+    wrapper.instance().logOut();
+    // and confirm that it's all gone
+    expect(wrapper.state('user')).toEqual({
+      email: '',
+      password: '',
+      isLoggedIn: false,
+    })
+  });
+
 });
