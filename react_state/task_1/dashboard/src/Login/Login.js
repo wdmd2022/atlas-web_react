@@ -67,11 +67,20 @@ function Login() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [enableSubmit, setEnableSubmit] = useState(false);
   function handleLoginSubmit(event) {
     // first we make sure it doesn't act like a normal form
     event.preventDefault();
     // then we set isLoggedIn to true
     setIsLoggedIn(true);
+  }
+  function handleChangeEmail(event) {
+    // take the new input value and use it to update the state value of email
+    setEmail(event.target.value);
+  }
+  function handleChangePassword(event) {
+    // take the new input value and use it to update the state value of password
+    setPassword(event.target.value);
   }
   return (
     <div className={css(styles.body)}>
@@ -81,11 +90,11 @@ function Login() {
       <form onSubmit={handleLoginSubmit} className={css(styles.formContainer)}>
         <div className={css(styles.formGroup)}>
           <label htmlFor="email" className={css(styles.label)}>Email: </label>
-          <input type="email" id="email" name="email" className={css(styles.input)} />
+          <input type="email" id="email" name="email" className={css(styles.input)} value={email} onChange={handleChangeEmail} />
         </div>
         <div className={css(styles.formGroup)}>
           <label htmlFor="password" className={css(styles.label)}>Password: </label>
-          <input type="password" id="password" name="password" className={css(styles.input)} />
+          <input type="password" id="password" name="password" className={css(styles.input)} value={password} onChange={handleChangePassword} />
         </div>
         <input type="submit" value="OK" className={css(styles.button)} />
       </form>
