@@ -72,7 +72,7 @@ function Login() {
       <p>
           Login to access the full dashboard
       </p>
-      <div className={css(styles.formContainer)}>
+      <form className={css(styles.formContainer)}>
         <div className={css(styles.formGroup)}>
           <label htmlFor="email" className={css(styles.label)}>Email: </label>
           <input type="email" id="email" name="email" className={css(styles.input)} />
@@ -81,8 +81,8 @@ function Login() {
           <label htmlFor="password" className={css(styles.label)}>Password: </label>
           <input type="password" id="password" name="password" className={css(styles.input)} />
         </div>
-      <button className={css(styles.button)}>OK</button>
-      </div>
+        <input type="submit" value="OK" className={css(styles.button)} />
+      </form>
     </div>
   );
 }

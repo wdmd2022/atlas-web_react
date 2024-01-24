@@ -19,10 +19,10 @@ describe('<Login />', () => {
         shallow(<Login />);
     });
 
-    it('renders 2 input tags and 2 label tags', () => {
+    it('renders 3 input tags and 2 label tags', () => {
         // first we'll make a new shallow Login
         const wrapper = shallow(<Login />);
-        expect(wrapper.find('input').length).toBe(2);
+        expect(wrapper.find('input').length).toBe(3);
         expect(wrapper.find('label').length).toBe(2);
     });
 });
