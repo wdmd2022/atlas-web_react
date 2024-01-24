@@ -1,6 +1,7 @@
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
 const styles = StyleSheet.create({
   body: {
@@ -108,5 +109,13 @@ function Login(props) {
     </div>
   );
 }
+
+Login.propTypes = {
+  logIn: PropTypes.func,
+};
+
+Login.defaultProps = {
+  logIn: () => {},
+};
 
 export default Login;
