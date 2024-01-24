@@ -135,9 +135,16 @@ describe('<Notifications />', () => {
         ];
         // I am almost out of scotch tape but yet, I continue to wrap
         const wrapper = shallow(<Notifications displayDrawer={true} listNotifications={listNotifications} />);
-        const shouldUpdate = wrapper.instance().shouldComponentUpdate({ listNotifications });
-        // It better not update, or we've got issues
-        expect(shouldUpdate).toBe(false);
+        // we will spy on shouldComponentUpdate
+        const shouldUpdateSpy = jest.spyOn(wrapper.instance(), 'shouldComponentUpdate');
+        // now we'll set props to the same thing to see if it triggers a re-render
+        wrapper.setProps({ listNotifications: [...listNotifications] });
+        // we confirm that it was called:
+        expect(shouldUpdateSpy).toHaveBeenCalled();
+        // and hopefully that it returned false:
+        expect(shouldUpdateSpy).toHaveLastReturnedWith(false);
+        // and let's clean up our mess
+        shouldUpdateSpy.mockRestore();
       });
 
       it('rerenders when the list gets longer', () => {
