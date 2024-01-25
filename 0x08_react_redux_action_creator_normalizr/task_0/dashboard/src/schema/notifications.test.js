@@ -1,4 +1,4 @@
-import { getAllNotificationsByUser } from 'notifications';
+import getAllNotificationsByUser from './notifications';
 
 describe('getAllNotificationsByUser', () => {
   it('returns the expected data for a given sample user', () => {
