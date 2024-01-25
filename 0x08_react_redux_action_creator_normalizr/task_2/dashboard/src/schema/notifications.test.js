@@ -1,5 +1,6 @@
 import { getAllNotificationsByUser, normalizedData } from './notifications';
 
+
 describe('getAllNotificationsByUser', () => {
   it('returns the expected data for a given sample user', () => {
     // first let's declare the user id we'll be searching for
