@@ -1,4 +1,4 @@
-import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT } from '../actions/uiActionTypes';
+import { DISPLAY_NOTIFICATION_DRAWER, HIDE_NOTIFICATION_DRAWER, LOGIN_SUCCESS, LOGIN_FAILURE, LOGOUT, LOGIN } from '../actions/uiActionTypes';
 import { Map } from 'immutable';
 
 // now we use Map from immutable to create Immutable Collections
@@ -25,6 +25,10 @@ const uiReducer = (state = initialState, action) => {
     case LOGOUT:
       // the set function from Map returns a new Immutable Collection
       return state.set('isUserLoggedIn', false).set('user', Map({}));
+    case LOGIN:
+      // when login is passed, set email and pass within user Map
+      const user = Map({ email: action.user.email, password: action.user.password });
+      return state.set('user', user);
     default:
       return state;
   }

@@ -1,7 +1,9 @@
 import logo from '../assets/holberton-logo.jpeg';
 import React from 'react';
 import { StyleSheet, css } from 'aphrodite';
-import AppContext from '../App/AppContext';
+import { connect } from 'react-redux';
+import { logout } from '../actions/uiActionCreators';
+
 
 const styles = StyleSheet.create({
     logo: { height: '20vmin' },
@@ -28,9 +30,8 @@ const styles = StyleSheet.create({
 });
 
 class Header extends React.Component {
-    static contextType = AppContext;
     render() {
-        const { user, logOut } = this.context;
+        const { user, logout } = this.props;
         return (
             <>
             <header className={css(styles.header)}>
@@ -39,9 +40,9 @@ class Header extends React.Component {
                     School dashboard
                 </h1>
             </header>
-            {user.isLoggedIn && (
+            {user.get('isLoggedIn') && (
             <div id='logoutSection'>
-                <p>Welcome <span className={css(styles.boldText)}>{user.email}</span> <a href="#" onClick={logOut} className={css(styles.logout)}>(logout)</a></p>
+                <p>Welcome <span className={css(styles.boldText)}>{user.get('email')}</span> <a href="#" onClick={logout} className={css(styles.logout)}>(logout)</a></p>
             </div>
             )}
             </>
@@ -49,4 +50,12 @@ class Header extends React.Component {
     }
 }
 
-export default Header;
+const mapStateToProps = (state) => ({
+    user: state.get('user'),
+});
+
+const mapDispatchToProps = {
+    logout: logout,
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

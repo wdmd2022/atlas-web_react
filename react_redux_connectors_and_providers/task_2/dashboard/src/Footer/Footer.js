@@ -1,25 +1,20 @@
 import { getFullYear, getFooterCopy } from '../utils/utils';
 import React from 'react';
-import AppContext from '../App/AppContext';
+import { connect } from 'react-redux';
 
-// we are using Context.Consumer instead of useContext because this is the
-// learning objective.
-
-function Footer({ className }) {
+function Footer({ className, user }) {
   return (
-    <AppContext.Consumer>
-      {({ user }) => {
-        return (
-          <footer className={className}>
-            <p>
-              Copyright {getFullYear()} - {getFooterCopy(true)}
-            </p>
-            {user.isLoggedIn && <p><a href='#'>Contact us</a></p>}
-          </footer>
-        );
-      }}
-    </AppContext.Consumer>
+    <footer className={className}>
+      <p>
+        Copyright {getFullYear()} - {getFooterCopy(true)}
+      </p>
+      {user.get('isLoggedIn') && <p><a href='#'>Contact us</a></p>}
+    </footer>
   );
 }
 
-export default Footer;
+const mapStateToProps = (state) => ({
+  user: state.get('user'),
+});
+
+export default connect(mapStateToProps)(Footer);

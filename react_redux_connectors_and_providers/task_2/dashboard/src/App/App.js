@@ -9,9 +9,8 @@ import CourseList from '../CourseList/CourseList';
 import BodySection from '../BodySection/BodySection';
 import BodySectionWithMarginBottom from '../BodySection/BodySectionWithMarginBottom';
 import { StyleSheet, css } from 'aphrodite';
-import AppContext from './AppContext';
 import { connect } from 'react-redux';
-import { displayNotificationDrawer, hideNotificationDrawer } from '../actions/uiActionCreators';
+import { displayNotificationDrawer, hideNotificationDrawer, loginRequest } from '../actions/uiActionCreators';
 
 const styles = StyleSheet.create({
   body: {
@@ -38,7 +37,6 @@ class App extends React.Component {
       user: {
         email: '',
         password: '',
-        isLoggedIn: false
       },
       listNotifications: [
         { id: 1, type: 'default', value: 'New course available' },
@@ -46,8 +44,6 @@ class App extends React.Component {
         { id: 3, type: 'urgent', html: { __html: '<strong>Urgent requirement</strong> - complete by EOD' } }
       ],
     };
-    this.logOut = this.logOut.bind(this);
-    this.logIn = this.logIn.bind(this);
   }
 
   markNotificationAsRead = (id) => {
@@ -56,14 +52,6 @@ class App extends React.Component {
       listNotifications: prevState.listNotifications.filter(notification => notification.id !== id)
     }));
   };
-
-  logIn(email, password) {
-    this.setState({ user: { email, password, isLoggedIn: true}});
-  }
-
-  logOut() {
-    this.setState({ user: { email: '', password: '', isLoggedIn: false }});
-  }
 
   componentDidMount() {
     document.addEventListener('keydown', this.pressyWessyCtrlH);
@@ -80,8 +68,8 @@ class App extends React.Component {
   }
 
   render() {
-    const { user, listNotifications } = this.state;
-    const { displayDrawer } = this.props;
+    const { listNotifications } = this.state;
+    const { displayDrawer, isLoggedIn, login, displayNotificationDrawer, hideNotificationDrawer } = this.props;
     const listCourses = [
       { id: 1, name: 'ES6', credit: 60 },
       { id: 2, name: 'Webpack', credit: 20 },
@@ -89,27 +77,25 @@ class App extends React.Component {
     ];
 
     return (
-      <AppContext.Provider value={{ user: this.state.user, logOut: this.logOut }}>
       <>
         <Notifications
           listNotifications={listNotifications}
           displayDrawer={displayDrawer}
-          handleDisplayDrawer={this.props.displayNotificationDrawer}
-          handleHideDrawer={this.props.hideNotificationDrawer}
+          handleDisplayDrawer={displayNotificationDrawer}
+          handleHideDrawer={hideNotificationDrawer}
           markNotificationAsRead={this.markNotificationAsRead}
         />
         <div className={css(styles.body)}>
           <Header />
-          {user.isLoggedIn?
+          {isLoggedIn?
           <BodySectionWithMarginBottom title="Course list" children={<CourseList listCourses={listCourses} />} />
           :
-          <BodySectionWithMarginBottom title="Log in to continue" children={<Login logIn={this.logIn} />} />
+          <BodySectionWithMarginBottom title="Log in to continue" children={<Login logIn={login} />} />
           }
           <BodySection title="News from the School" children={<p>School is cool. School is cool.</p>} />
           <Footer className={css(styles.footer)} />
         </div>
       </>
-      </AppContext.Provider>
     );
   }
 }
@@ -118,12 +104,14 @@ App.propTypes = {
   displayDrawer: PropTypes.bool.isRequired,
   displayNotificationDrawer: PropTypes.func.isRequired,
   hideNotificationDrawer: PropTypes.func.isRequired,
+  login: PropTypes.func.isRequired
 };
 
 App.defaultProps = {
   displayDrawer: false,
   displayNotificationDrawer: () => {},
   hideNotificationDrawer: () => {},
+  login: () => {},
 };
 
 // now we start to connect our Redux state, which is an Immutable Map.
@@ -136,6 +124,7 @@ export const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
   displayNotificationDrawer,
   hideNotificationDrawer,
+  login: loginRequest,
 }
 
 // export default App; // got rid of this old export in favor of:
